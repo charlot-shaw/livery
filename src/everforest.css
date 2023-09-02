@@ -1,3 +1,126 @@
-h1 {
-  color: green;
+@import 'op.css';
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  --base00: #2f383E;
+  --base01: #374247;
+  --base02: #4a555b;
+  --base03: #859289;
+  --base04: #9DA9A0;
+  --base05: #D3C6AA;
+  --base06: #E4E1CD;
+  --base07: #FDF6E3;
+  --base08: #7FBBB3;
+  --base09: #D699B6;
+  --base0A: #DBBC7F;
+  --base0B: #83C092;
+  --base0C: #E69875;
+  --base0D: #A7C080;
+  --base0E: #E67E80;
+  --base0F: #EAEDC8;
+
+  color: var(--base05);
+  background-color: var(--base00);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.stack > * {
+  margin-block: 0;
+}
+
+.stack > * + * {
+  margin-block-start: var(--size-05);
+}
+
+.box {
+  padding: var(--size-03);
+}
+
+.box * {
+  color: inherit;
+}
+
+.box.bordered {
+  border: var(--border-size-1) solid var(--base01);
+}
+
+.center {
+  box-sizing: content-box;
+  margin-inline: auto;
+  max-inline-size: var(--size-content-3);
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-05);
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.with-sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-03);
+}
+
+.with-sidebar > :first-child {
+  flex-grow: 1;
+}
+
+.with-sidebar > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: 50%;
+}
+
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-03);
+}
+
+.switcher > * {
+  flex-grow: 1;
+  flex-basis: calc(( var(--size-content-1) - 100%) * 999);
+}
+
+.switcher > :nth-last-child(n+ 5),
+.switcher > :nth-last-child(n+ 5) ~ * {
+  flex-basis: 100%;
+}
+
+
+.grid {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+@supports (width: min(var(--size-xxs), 100%)) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--size-xxs), 100%), 1fr));
+  }
+}
+
+.frame-square {
+  aspect-ratio: var(--ratio-square);
+  overflow:hidden;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.frame-square img,video {
+  max-inline-size: 100%;
+  max-block-size: 100%;
+  object-fit: cover;
 }
