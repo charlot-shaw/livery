@@ -1,35 +1,45 @@
 {
-  description = "Sparrow's aesthetic.";
+  description = "Sparrow's CSS base.";
 
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
     utils.url = github:numtide/flake-utils;
+    openprops = {
+      url = "https://unpkg.com/open-props@1.5.15/open-props.min.css";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, utils, ... }:
+  outputs = { self, nixpkgs, utils, openprops, ... }:
     utils.lib.eachDefaultSystem (system:
-      let
+      let 
+        lastModifiedDate = self.lastModifiedDate or self.lastModified or "19700101";
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
-        devShells.default = pkgs.mkShell {
-
-          everforest = pkgs.stdenv.mkDerivation rec {
-            name = "Evereforest and OpenProps";
+        packages = rec {
+          livery = pkgs.stdenv.mkDerivation rec {
+            pname = "livery";
+            description = "Everforest and openprops";
             version = builtins.substring 0 8 lastModifiedDate;
-            src = ./.;
-            buildInputs = with pkgs; [nodePackages.lightningcss];
-            phase = "installPhase";
-            installPhase = ''
-              mkdir -p $out/static.css
-              echo Not done yet.
-              ''
-          }
+            system = system;
+            src = builtins.path {path = ./.;
+                                 name = "livery";};
+            buildInputs = with pkgs; [lightningcss];
+            phase = "buildPhase";
 
-          nativeBuildInputs = with pkgs; [ ];
-
-          buildInputs = with pkgs; [ ];
+            buildPhase = ''
+              mkdir work
+              cp  ${openprops} work/op.css
+              cp $src/src/everforest.css work/custom.css
+              lightningcss --minify --bundle --targets '>= 0.25%' work/custom.css -o $out/public/css/base.css
+            '';
+          };
         };
+
+        devShells.default = pkgs.mkShell {
+            buildInputs = with pkgs; [lightningcss];
+          };
       }
     );
 }
