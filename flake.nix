@@ -32,7 +32,7 @@
               mkdir work
               cp  ${openprops} work/op.css
               cp $src/src/everforest.css work/custom.css
-              lightningcss --minify --bundle --targets '>= 0.25%' work/custom.css -o $out/public/css/base.css
+              lightningcss --minify --bundle --nesting --targets '>= 0.25%' work/custom.css -o $out/css/base.css
             '';
           };
         };
