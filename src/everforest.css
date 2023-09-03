@@ -10,12 +10,28 @@ body {
   --bg0: #272E33;
   --bg1: #2E383C;
   --bg2: #374145;
-  --bg4: #414B50;
-  --fg: #D3C6AA;
-  --green: #A7C080;
+  --bg3: #414B50;
+  --bg4: #495156;
+  --bg5: #4F5B58;
+  --bg-visual: #4C3743;
+  --bg-red: #493B40;
+  --bg-green: #3C4841;
+  --bg-blue: #384B55;
+  --bg-yellow: #45443C;
+  --grey0: #7A8478;
   --grey1: #859289;
+  --grey2: #9DA9A0;
+  --fg: #D3C6AA;
+  --red: #E67E80;
+  --orange: #E69875;
+  --yellow: #DBBC7F;
+  --green: #A7C080;
+  --aqua: #83C092;
   --blue: #7FBBB3;
   --purple: #D699B6;
+  --statusline1: #a7C080;
+  --statusline2: #D3C6AA;
+  --statusline3: #E67E80;
   --animation-speed: 0.5s;
   --animation-delay-scaling: 0.75s;
 
@@ -29,12 +45,23 @@ body {
   --bg0: #FFFBEF;
   --bg1: #F8F5E4;
   --bg2: #F2EFDE;
-  --bg4: #EDEADA;
+  --bg3: #EDEADA;
+  --bg4: #E8E5D5;
+  --bg5: #BEC5B2;
+  --grey0: #A6B0A0;
+  --grey1: #939F91;
+  --grey2: #829181;
   --fg: #5C6A72;
+  --red: #F85552;
+  --orange: #F57D26;
+  --yellow: #DFA000;
   --green: #8DA101;
-  --grey1: #A6B0A0;
+  --aqua: #35A77C;
   --blue: #3A94C5;
   --purple: #DF69BA;
+  --statusline1: #93B259;
+  --statusline2: #708089;
+  --statusline3: #E66868;
 }}
 
 
@@ -97,34 +124,34 @@ h1,h2,h3,h4,h5,h6 {
   display: flex;
   flex-wrap: wrap;
   gap: var(--size-03);
+
+  > :first-child {
+    flex-grow: 1;
+  }
+
+  > :last-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: 50%;
+  }
 }
 
-.with-sidebar > :first-child {
-  flex-grow: 1;
-}
-
-.with-sidebar > :last-child {
-  flex-basis: 0;
-  flex-grow: 999;
-  min-inline-size: 50%;
-}
 
 .switcher {
   display: flex;
   flex-wrap: wrap;
   gap: var(--size-03);
-}
 
-.switcher > * {
-  flex-grow: 1;
-  flex-basis: calc(( var(--size-content-1) - 100%) * 999);
-}
+  * {
+    flex-grow: 1;
+    flex-basis: calc(( var(--size-content-1) - 100%) * 999);
+  }
 
-.switcher > :nth-last-child(n+ 5),
-.switcher > :nth-last-child(n+ 5) ~ * {
-  flex-basis: 100%;
+  :nth-last-child(n+5),
+  :nth-last-child(n+5) ~ * {
+    flex-basis: 100%;
+  }
 }
-
 
 .grid {
   display: grid;
