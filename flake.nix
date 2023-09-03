@@ -35,6 +35,8 @@
               lightningcss --minify --bundle --nesting --targets '>= 0.25%' work/custom.css -o $out/css/base.css
             '';
           };
+
+          default = livery;
         };
 
         devShells.default = pkgs.mkShell {
